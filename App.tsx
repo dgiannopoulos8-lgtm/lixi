@@ -76,7 +76,7 @@ function Timeline() {
 
         {thisWeek.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.h2}>Αυτή την εβδομάδα</Text>
+            <Text style={styles.h2}>ΑΥΤΗ ΤΗΝ ΕΒΔΟΜΑΔΑ</Text>
             {thisWeek.map((i) => (
               <ItemCard key={i.id} item={i} onDone={markDone} />
             ))}
@@ -85,7 +85,7 @@ function Timeline() {
 
         {later.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.h2}>Αργότερα</Text>
+            <Text style={styles.h2}>ΑΡΓΟΤΕΡΑ</Text>
             {later.map((i) => (
               <ItemCard key={i.id} item={i} compact onDone={markDone} />
             ))}
@@ -139,7 +139,9 @@ const styles = StyleSheet.create({
   summaryLabel: { fontSize: 13, color: '#5F5F64' },
   summaryTotal: { fontSize: 30, fontWeight: '700', color: colors.ink, letterSpacing: -0.5 },
   section: { gap: 10 },
-  h2: { fontSize: 13, fontWeight: '600', color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.8 },
+  // Greek capitals drop their accents, so headings are written in caps by hand
+  // instead of textTransform: 'uppercase' (which would keep the tonos).
+  h2: { fontSize: 13, fontWeight: '600', color: colors.muted, letterSpacing: 0.8 },
   empty: { alignItems: 'center', paddingVertical: 48, gap: 6 },
   emptyTitle: { fontSize: 18, fontWeight: '600', color: colors.ink },
   emptyText: { fontSize: 14, color: colors.muted, textAlign: 'center' },
