@@ -8,21 +8,23 @@ interface Props {
   /** Compact = plain row for items further away; otherwise a card. */
   compact?: boolean;
   onDone: (item: Item) => void;
+  onOpen: (item: Item) => void;
 }
 
-export function ItemCard({ item, compact, onDone }: Props) {
+export function ItemCard({ item, compact, onDone, onOpen }: Props) {
   const days = daysUntil(item.due);
   const urgent = days <= URGENT_DAYS;
   const action = actionLabel(item.kind);
 
   const title = item.note ? `${item.title} · ${item.note}` : item.title;
   const when = urgent ? relativeDays(days) : shortDate(item.due);
+  const overdue = days < 0;
   const money = item.amount != null ? ` · ${euro(item.amount)}` : '';
-  const subtitle = `${datePrefix(item.kind)} ${when}${money}`;
+  const subtitle = overdue ? `Εκπρόθεσμο · ${when}${money}` : `${datePrefix(item.kind)} ${when}${money}`;
 
   if (compact) {
     return (
-      <View style={styles.row}>
+      <Pressable accessibilityRole="button" onPress={() => onOpen(item)} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
         <View style={styles.text}>
           <Text style={styles.rowTitle} numberOfLines={1}>{title}</Text>
           <Text style={styles.sub}>{datePrefix(item.kind)} {shortDate(item.due)}</Text>
@@ -32,12 +34,16 @@ export function ItemCard({ item, compact, onDone }: Props) {
         ) : (
           <Text style={styles.days}>{relativeDays(days)}</Text>
         )}
-      </View>
+      </Pressable>
     );
   }
 
   return (
-    <View style={[styles.card, urgent && styles.cardUrgent]}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={() => onOpen(item)}
+      style={({ pressed }) => [styles.card, urgent && styles.cardUrgent, pressed && styles.pressed]}
+    >
       <View style={styles.text}>
         <Text style={styles.title} numberOfLines={1}>{title}</Text>
         <Text style={[styles.sub, urgent && styles.subUrgent]}>{subtitle}</Text>
@@ -58,11 +64,12 @@ export function ItemCard({ item, compact, onDone }: Props) {
           </Text>
         </Pressable>
       )}
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  pressed: { opacity: 0.75 },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
