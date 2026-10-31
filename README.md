@@ -4,14 +4,17 @@
 
 Status: early development (Phase 1 MVP, Android first).
 
-## What works so far
+## What works (MVP)
 
-- **Timeline (Τι έρχεται):** everything due in the next weeks, soonest first, with the 30-day total.
-- Urgent items (3 days or less) are highlighted in amber.
-- "Πληρώθηκε" / "Ακύρωσα" / "Έγινε" marks an item done, with a 5-second "Αναίρεση" (undo).
-- Data is saved on the phone. On first launch the app shows example items.
+- **Αρχική (timeline):** everything coming up, soonest first, with the 30-day total. Due in 3 days or less → amber; past due → "Εκπρόθεσμο".
+- **Add / edit / delete:** subscriptions, bills, deadlines and free trials. Quick picks for popular Greek services, a calendar, repeat (once / monthly / yearly) and how early to be reminded.
+- **Mark done** with undo. Monthly and yearly items move to their next date; subscriptions roll forward on their own.
+- **Reminders:** real phone notifications at 09:00, the chosen number of days before each item (not for the example items).
+- **Έγγραφα:** the Greek admin checklist (ΚΤΕΟ, insurance, road tax, licence, ID, passport, tax return) with progress.
+- **Σύνοψη:** what's left to pay this month and the monthly cost of all subscriptions.
+- Data stays on the phone. First launch shows example items, which can be removed in one tap.
 
-Next: adding items, reminders (notifications), the documents checklist, bill scanning, Premium.
+Not in the MVP yet: bill scanning with the camera, e-receipts tracker, Premium payments, accounts/sync.
 
 ## Try it on your Android phone (Windows PC)
 
@@ -33,6 +36,8 @@ A QR code appears. Open **Expo Go** on the phone and scan it. The phone and the 
 If it can't connect, stop it (Ctrl+C) and run `npx expo start --tunnel` instead.
 
 To get later updates: `git pull`, then `npm install`, then `npx expo start` again.
+
+Quick look in a web browser instead: `npx expo start --web` (notifications don't work there).
 
 ## Tech
 
